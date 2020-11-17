@@ -7,6 +7,8 @@
  */
 package com.bluepowermod.event;
 
+import java.nio.file.Path;
+
 import com.bluepowermod.init.BPConfig;
 import com.bluepowermod.recipe.AlloyFurnaceRegistry;
 import com.bluepowermod.util.DatapackUtils;
@@ -34,8 +36,11 @@ public class BPRecyclingReloadListener implements IResourceManagerReloadListener
                 AlloyFurnaceRegistry.getInstance().generateRecipeDatapack(server);
             } else {
                 //If disabled remove any generated recipes
-                String path = server.func_240776_a_(FolderName.DATAPACKS).toString();
-                DatapackUtils.clearBPAlloyFurnaceDatapack(path);
+                Path path = server.func_240776_a_(FolderName.DATAPACKS);
+				//remove if path exists
+                if(path != null) {
+                	DatapackUtils.clearBPAlloyFurnaceDatapack(path.toString());
+                }
             }
     }
 
